@@ -6,7 +6,7 @@ import React, { useState } from 'react'
 function App() {
   const [text, setText] = useState('');
   const [result, setResult] = useState('');
-  const api_key = process.env.API_KEY
+  const api_key = process.env.REACT_APP_API_KEY
 
   const analyzeSentiment = async () => {
     const options = {
@@ -15,7 +15,7 @@ function App() {
       headers: {
         'content-type': 'application/json',
         Accept: 'application/json',
-        'X-RapidAPI-Key': REACT_APP_API_KEY,
+        'X-RapidAPI-Key': api_key,
         'X-RapidAPI-Host': 'sentiment-analysis9.p.rapidapi.com'
       },
       data: JSON.stringify([{ id: '1', language: 'en', text: text }])
