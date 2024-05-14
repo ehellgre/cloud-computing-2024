@@ -15,7 +15,7 @@ function App() {
       headers: {
         'content-type': 'application/json',
         Accept: 'application/json',
-        'X-RapidAPI-Key': api_key,
+        'X-RapidAPI-Key': REACT_APP_API_KEY,
         'X-RapidAPI-Host': 'sentiment-analysis9.p.rapidapi.com'
       },
       data: JSON.stringify([{ id: '1', language: 'en', text: text }])
