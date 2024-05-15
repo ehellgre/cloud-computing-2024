@@ -4,34 +4,36 @@ import React, { useState } from 'react'
 
 
 function App() {
-  const [text, setText] = useState('');
-  const [result, setResult] = useState('');
+  const [text, setText] = useState('')
+  const [result, setResult] = useState('')
+  const [token, setToken] = useState('')
   const api_key = process.env.REACT_APP_API_KEY
+
+  const apiUrl = 'http://localhost:3001/sentiment-analysis'
 
   const analyzeSentiment = async () => {
     const options = {
       method: 'POST',
-      url: 'https://sentiment-analysis9.p.rapidapi.com/sentiment',
+      url: apiUrl,
       headers: {
         'content-type': 'application/json',
         Accept: 'application/json',
-        'X-RapidAPI-Key': api_key,
-        'X-RapidAPI-Host': 'sentiment-analysis9.p.rapidapi.com'
+        'Authorization': `Bearer ${token}`
       },
-      data: JSON.stringify([{ id: '1', language: 'en', text: text }])
+      data: JSON.stringify({ text: text })
     };
 
     try {
-      const response = await axios.request(options);
+      const response = await axios.request(options)
       console.log(response)
       console.log(response.data[0])
       const predictionRes = response.data[0].predictions[0].prediction;
       const predictionRes2 = response.data[0].predictions[0].probability;
-      setResult(`Sentiment: ${predictionRes} (Probability: ${predictionRes2})`);
+      setResult(`Sentiment: ${predictionRes} (Probability: ${predictionRes2})`)
       console.log(result)
     } catch (error) {
-      console.error('Error:', error);
-      setResult('Failed to analyze sentiment');
+      console.error(error)
+      setResult('Failed to analyze sentiment')
     }
   };
 
@@ -41,10 +43,12 @@ function App() {
     <div className="App">
       <header className="App-header">
         <h3>Sentiment Analysis Frontend</h3>
-        <textarea className="input" value={text} onChange={(e) => setText(e.target.value)} placeholder="Write text for analysis! (only english accepted)" style={{width: '300px', height: '100px', marginBottom: '10px'}}
-        />
+        <textarea className="input" value={text} onChange={(e) => setText(e.target.value)} placeholder="Write text for analysis! (only english accepted)" style={{width: '300px', height: '100px', marginBottom: '10px'}} />
+        <input type="text" value={token} onChange={(e) => setToken(e.target.value)} placeholder="Enter jwt token" style={{ width: '300px', marginBottom: '10px' }} />
         <button onClick={analyzeSentiment}>Send</button>
         <p>{result}</p>
+
+        <p>jwt-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoidXNlciIsImlhdCI6M<br/>TcxNTc2MTMyNiwiZXhwIjoxNzIwOTQ1MzI2fQ.Dao9naVsf1yIBhFa7YnOdgdwonsyzJObWQk0tFrB33k</p>
       </header>
     </div>
   );
