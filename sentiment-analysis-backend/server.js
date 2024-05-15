@@ -23,7 +23,7 @@ app.get('/generate-jwt-token', (req, res) => {
 // verify the jwt-token
 const verifyToken = (req, res, next) => {
 
-    const token = req.headers.authorization?.split(' ')[1];
+    const token = req.headers.authorization ? req.headers.authorization.split(' ')[1] : undefined;
 
     if (!token) return res.status(401).json({ message: 'no token provided' });
 
