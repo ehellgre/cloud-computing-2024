@@ -9,7 +9,7 @@ function App() {
   const [token, setToken] = useState('')
   const api_key = process.env.REACT_APP_API_KEY
 
-  const apiUrl = 'http://localhost:3001/sentiment-analysis'
+  const apiUrl = 'https://sentiment-analysis-be-cloud-computing-2024-eh.rahtiapp.fi/sentiment-analysis'
 
   const analyzeSentiment = async () => {
     const options = {
@@ -47,8 +47,6 @@ function App() {
         <input type="text" value={token} onChange={(e) => setToken(e.target.value)} placeholder="Enter jwt token" style={{ width: '300px', marginBottom: '10px' }} />
         <button onClick={analyzeSentiment}>Send</button>
         <p>{result}</p>
-
-        <p>jwt-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoidXNlciIsImlhdCI6M<br/>TcxNTc2MTMyNiwiZXhwIjoxNzIwOTQ1MzI2fQ.Dao9naVsf1yIBhFa7YnOdgdwonsyzJObWQk0tFrB33k</p>
       </header>
     </div>
   );
